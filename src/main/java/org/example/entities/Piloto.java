@@ -14,14 +14,23 @@ public class Piloto implements Serializable {
     @Column(length = 50, unique = true)
     private String nombre;
     @Column(name = "fecha_nacimiento")
-    private LocalDate fechaNacimeinto;
+    private LocalDate fechaNacimiento;
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Equipo equipo;
 
     public Piloto() {
+
     }
 
-    public Piloto(String nombre, LocalDate fechaNacimeinto) {
+    public Piloto(String nombre, LocalDate fechaNacimiento) {
         this.nombre = nombre;
-        this.fechaNacimeinto = fechaNacimeinto;
+        this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public Piloto(String nombre, LocalDate fechaNacimiento, Equipo equipo) {
+        this.nombre = nombre;
+        this.fechaNacimiento = fechaNacimiento;
+        this.equipo = equipo;
     }
 
     public int getId() {
@@ -40,12 +49,20 @@ public class Piloto implements Serializable {
         this.nombre = nombre;
     }
 
-    public LocalDate getFechaNacimeinto() {
-        return fechaNacimeinto;
+    public LocalDate getFechaNacimiento() {
+        return fechaNacimiento;
     }
 
-    public void setFechaNacimeinto(LocalDate fechaNacimeinto) {
-        this.fechaNacimeinto = fechaNacimeinto;
+    public void setFechaNacimiento(LocalDate fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public Equipo getEquipo() {
+        return equipo;
+    }
+
+    public void setEquipo(Equipo equipo) {
+        this.equipo = equipo;
     }
 
     @Override
@@ -53,7 +70,8 @@ public class Piloto implements Serializable {
         return "Piloto{" +
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
-                ", fechaNacimeinto=" + fechaNacimeinto +
+                ", fechaNacimiento=" + fechaNacimiento +
+                ", equipo=" + equipo +
                 '}';
     }
 }
